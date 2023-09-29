@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{.Values.persistentVolume.file.pyspark.name}}
+  namespace: {{.Release.Namespace}}
+  labels:
+    {{- include "helm-data-tank.labels" . | nindent 4 }}
+spec:
+  capacity:
+    storage: {{.Values.persistentVolume.capacity}}
+  storageClassName: {{.Values.persistentVolume.class}}
+  claimRef:
+    namespace: {{.Release.Namespace}}
+    name: {{.Values.persistentVolumeClaim.file.pyspark.name}}
+  accessModes:
+  - ReadWriteOnce
+  nfs:
+    server: {{.Values.persistentVolume.server}}
+    path: {{.Values.persistentVolume.file.pyspark.path}}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{.Values.persistentVolume.log.name}}
+  namespace: {{.Release.Namespace}}
+  labels:
+    {{- include "helm-data-tank.labels" . | nindent 4 }}
+spec:
+  capacity:
+    storage: {{.Values.persistentVolume.capacity}}
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: {{.Values.persistentVolume.class}}
+  claimRef:
+    namespace: {{.Release.Namespace}}
+    name: {{.Values.persistentVolumeClaim.log.name}}
+  nfs:
+    server: {{.Values.persistentVolume.server}}
+    path: {{.Values.persistentVolume.log.path}}
+
+

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{.Values.persistentVolumeClaim.log.name}}
+  labels:
+    {{- include "helm-data-tank.labels" . | nindent 4 }}
+    location: nfs-client
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: {{.Values.persistentVolume.capacity}}
+  storageClassName: {{.Values.persistentVolume.class}}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{.Values.persistentVolumeClaim.file.pyspark.name}}
+  labels:
+    {{- include "helm-data-tank.labels" . | nindent 4 }}
+    location: nfs-client
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: {{.Values.persistentVolume.capacity}}
+  storageClassName: {{.Values.persistentVolume.class}}
