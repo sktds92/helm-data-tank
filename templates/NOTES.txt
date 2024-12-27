@@ -1,4 +1,22 @@
 1. Get the application URL by running these commands:
+spark commands:
+   ./bin/spark-submit \
+    --total-executor-cores 10 \
+    --class org.apache.spark.examples.SparkPi \
+    --conf spark.kubernetes.container.image=seedncontainer.azurecr.io/spark:1 \
+    --conf spark.kubernetes.container.image.pullSecrets=mysecret\
+    --master k8s://https://192.168.1.120:6443 \
+    --conf spark.executor.memory=20g \
+    --conf spark.kubernetes.driverEnv.SPARK_MASTER_URL=spark://helm-spark-master-svc.spark.svc:7077 \
+    --conf spark.kubernetes.driver.volumes.nfs.pyspark-pvc.options.server=192.168.1.32 \
+    --conf spark.kubernetes.driver.volumes.nfs.pyspark-pvc.options.path=/volume1/kubernetes-volume/data-tank/pyspark \
+    --conf spark.kubernetes.driver.volumes.nfs.pyspark-pvc.mount.path=/opt/bitnami/spark/pyspark \
+    --conf spark.kubernetes.driver.volumes.nfs.result-pvc.options.server=192.168.1.32 \
+    --conf spark.kubernetes.driver.volumes.nfs.result-pvc.options.path=/volume1/kubernetes-volume/data-tank/result \
+    --conf spark.kubernetes.driver.volumes.nfs.result-pvc.mount.path=/opt/bitnami/spark/result \
+    --conf spark.kubernetes.namespace=spark \
+    --deploy-mode cluster \
+ local:///opt/bitnami/spark/pyspark/cassamia-sensor.py 2000
 {{- if .Values.ingress.enabled }}
 {{- range $host := .Values.ingress.hosts }}
   {{- range .paths }}
