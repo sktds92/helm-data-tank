@@ -42,14 +42,14 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /data-tank/actuator
-              port: {{ .Values.service.targetPort}}
-          readinessProbe:
-            httpGet:
-              path: /data-tank/actuator
-              port: {{ .Values.service.targetPort}}
+          # livenessProbe:
+          #   httpGet:
+          #     path: /data-tank/actuator
+          #     port: {{ .Values.service.targetPort}}
+          # readinessProbe:
+          #   httpGet:
+          #     path: /data-tank/actuator
+          #     port: {{ .Values.service.targetPort}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
