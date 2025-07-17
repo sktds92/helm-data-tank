@@ -44,11 +44,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /actuator
+              path: /data-tank/actuator
               port: {{ .Values.service.targetPort}}
           readinessProbe:
             httpGet:
-              path: /actuator
+              path: /data-tank/actuator
               port: {{ .Values.service.targetPort}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
