@@ -58,9 +58,10 @@ persistentVolume:
   capacity: 5Gi
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 8080
   targetPort: 8080
+  nodePort: 30005
 
 ingress:
   enabled: false
