@@ -44,6 +44,9 @@ persistentVolumeClaim:
   log:
     name: data-tank-log-pvc
     mountPath: /home/ubuntu/application/logs
+  eventlog:
+    name: event-log-pvc
+    mountPath: /opt/bitnami/spark/eventLog
 
 persistentVolume:
   class: nfs-client
@@ -56,6 +59,12 @@ persistentVolume:
     name: data-tank-log-pv
     path: /volume1/kubernetes-volume/data-tank/logs
   capacity: 5Gi
+  eventlog:
+    class: nfs-client
+    server: 192.168.1.33
+    name: event-log-pv
+    path: /volume1/kubernetes-volume/spark/eventLog
+    capacity: 5Gi
 
 service:
   type: NodePort

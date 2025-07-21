@@ -27,3 +27,18 @@ spec:
     requests:
       storage: {{.Values.persistentVolume.capacity}}
   storageClassName: {{.Values.persistentVolume.class}}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{.Values.persistentVolumeClaim.eventlog.name}}
+  labels:
+    {{- include "helm-data-tank.labels" . | nindent 4 }}
+    location: nfs-client
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{.Values.persistentVolume.eventlog.capacity}}
+  storageClassName: {{.Values.persistentVolume.eventlog.class}}

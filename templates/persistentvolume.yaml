@@ -37,5 +37,25 @@ spec:
   nfs:
     server: {{.Values.persistentVolume.server}}
     path: {{.Values.persistentVolume.log.path}}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{.Values.persistentVolume.eventlog.name}}
+  namespace: {{.Release.Namespace}}
+  labels:
+    {{- include "helm-data-tank.labels" . | nindent 4 }}
+spec:
+  capacity:
+    storage: {{.Values.persistentVolume.eventlog.capacity}}
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: {{.Values.persistentVolume.eventlog.class}}
+  claimRef:
+    namespace: {{.Release.Namespace}}
+    name: {{.Values.persistentVolumeClaim.eventlog.name}}
+  nfs:
+    server: {{.Values.persistentVolume.eventlog.server}}
+    path: {{.Values.persistentVolume.eventlog.path}}
 
 
