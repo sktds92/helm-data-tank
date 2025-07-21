@@ -95,6 +95,8 @@ configmap:
   name: data-tank-configmap
   data:
     DATATANK_CONTEXT_PATH: /data-tank
+    DATATANK_PYSPARK_FOLDER: /opt/bitnami/spark/pyspark
+    DATATANK_RESULT_FOLDER: /opt/bitnami/spark/result
 
 secret:
   name: data-tank-secret
